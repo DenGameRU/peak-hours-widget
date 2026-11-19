@@ -1,0 +1,23 @@
+# Build output
+bin/
+obj/
+artifacts/
+artifacts-signed/
+AppPackages/
+BundleArtifacts/
+
+# Local certs / keys
+*.pfx
+*.p12
+certs/
+
+# IDE / OS
+.vs/
+.idea/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
