@@ -197,16 +197,6 @@
       "type": "Action.Execute",
       "title": "Refresh",
       "verb": "refresh"
-    },
-    {
-      "type": "Action.Execute",
-      "title": "CHINA ${chinaTime}",
-      "verb": "china"
-    },
-    {
-      "type": "Action.Execute",
-      "title": "NewYork ${newYorkTime}",
-      "verb": "newyork"
     }
   ]
 }

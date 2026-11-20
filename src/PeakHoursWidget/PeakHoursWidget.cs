@@ -44,9 +44,7 @@ internal sealed class PeakHoursWidgetImpl : WidgetImplBase
 
     public override void OnActionInvoked(WidgetActionInvokedArgs args)
     {
-        if (string.Equals(args.Verb, "refresh", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(args.Verb, "china", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(args.Verb, "newyork", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(args.Verb, "refresh", StringComparison.OrdinalIgnoreCase))
         {
             PushUpdate(includeTemplate: false);
         }
