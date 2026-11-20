@@ -121,6 +121,75 @@
           ]
         }
       ]
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "spacing": "Small",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "CHINA",
+                  "size": "Small",
+                  "weight": "Bolder",
+                  "color": "accent"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${chinaTime}",
+                  "size": "Small",
+                  "weight": "Bolder",
+                  "horizontalAlignment": "Right"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "NewYork",
+                  "size": "Small",
+                  "weight": "Bolder",
+                  "color": "accent"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${newYorkTime}",
+                  "size": "Small",
+                  "weight": "Bolder",
+                  "horizontalAlignment": "Right"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "actions": [
@@ -128,6 +197,16 @@
       "type": "Action.Execute",
       "title": "Refresh",
       "verb": "refresh"
+    },
+    {
+      "type": "Action.Execute",
+      "title": "CHINA ${chinaTime}",
+      "verb": "china"
+    },
+    {
+      "type": "Action.Execute",
+      "title": "NewYork ${newYorkTime}",
+      "verb": "newyork"
     }
   ]
 }

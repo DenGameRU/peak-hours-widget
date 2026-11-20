@@ -10,7 +10,7 @@
   <Identity
     Name="PeakHoursWidget"
     Publisher="CN=PeakHoursWidget"
-    Version="1.0.5.0" />
+    Version="1.0.6.0" />
 
   <Properties>
     <DisplayName>Peak Hours Widget</DisplayName>

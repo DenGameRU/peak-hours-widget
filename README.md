@@ -18,7 +18,8 @@ Weekdays 01:00–04:00, 06:00–10:00 UTC
   - **`NOT PEAK`** — зелёная.
 - Строку деталей: `Peak now — ends HH:mm` или `Next peak in 2h 15m · Mon 09:00`.
 - Название часового пояса и смещение, например `Russian Standard Time · UTC+03:00`.
-- Кнопку **Refresh** для ручного обновления.
+- Блоки **CHINA** и **NewYork** с их текущим временем (UTC+8 и US Eastern с учётом DST).
+- Кнопки **Refresh**, **CHINA …**, **NewYork …** — любая обновляет данные сразу, не дожидаясь таймера.
 
 Автообновление — **раз в 10 минут** (плюс сразу при открытии панели и по кнопке Refresh).
 Пока виджет не виден, обновления не отправляются.
@@ -44,14 +45,14 @@ Weekdays 01:00–04:00, 06:00–10:00 UTC
 ## Вариант A. Установить готовый MSIX из Releases
 
 1. Скачать из раздела **Releases** два файла в одну папку:
-   - `PeakHoursWidget_1.0.5.0_x64.msix`
+   - `PeakHoursWidget_1.0.6.0_x64.msix`
    - `PeakHoursWidget.cer`
 2. Открыть **PowerShell от имени администратора** в этой папке и выполнить:
 
 ```powershell
 Import-Certificate .\PeakHoursWidget.cer -CertStoreLocation Cert:\LocalMachine\Root
 Import-Certificate .\PeakHoursWidget.cer -CertStoreLocation Cert:\LocalMachine\TrustedPeople
-Add-AppxPackage .\PeakHoursWidget_1.0.5.0_x64.msix
+Add-AppxPackage .\PeakHoursWidget_1.0.6.0_x64.msix
 ```
 
 3. Перейти к шагу [«Закрепление виджета»](#закрепление-виджета-обязательный-разовый-шаг).
@@ -140,7 +141,7 @@ Get-ChildItem Cert:\LocalMachine\TrustedPeople | Where-Object Subject -eq 'CN=Pe
 ```
 
 При изменении кода обязательно увеличьте `Version` в `Package.appxmanifest`
-(например `1.0.5.0` → `1.0.6.0`) — иначе `Add-AppxPackage` посчитает пакет тем же.
+(например `1.0.6.0` → `1.0.7.0`) — иначе `Add-AppxPackage` посчитает пакет тем же.
 
 ## Настройка расписания
 

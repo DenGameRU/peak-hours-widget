@@ -23,6 +23,9 @@ internal sealed class PeakHoursWidgetImpl : WidgetImplBase
 
     private static readonly string[] DayNames = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
 
+    private static readonly TimeZoneInfo ChinaZone = FindZone("China Standard Time", "Asia/Shanghai");
+    private static readonly TimeZoneInfo NewYorkZone = FindZone("Eastern Standard Time", "America/New_York");
+
     private static string? _template;
     private static readonly object ScheduleLock = new();
     private static ScheduleSnapshot? _schedule;
@@ -41,7 +44,9 @@ internal sealed class PeakHoursWidgetImpl : WidgetImplBase
 
     public override void OnActionInvoked(WidgetActionInvokedArgs args)
     {
-        if (string.Equals(args.Verb, "refresh", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(args.Verb, "refresh", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(args.Verb, "china", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(args.Verb, "newyork", StringComparison.OrdinalIgnoreCase))
         {
             PushUpdate(includeTemplate: false);
         }
@@ -53,6 +58,10 @@ internal sealed class PeakHoursWidgetImpl : WidgetImplBase
         var nowLocal = DateTime.Now;
         var schedule = GetSchedule(zone, nowLocal);
         var (isPeak, peakEnd, nextStart) = GetStatus(nowLocal, zone);
+
+        var nowUtc = DateTime.UtcNow;
+        string chinaTime = TimeZoneInfo.ConvertTimeFromUtc(nowUtc, ChinaZone).ToString("ddd HH:mm");
+        string newYorkTime = TimeZoneInfo.ConvertTimeFromUtc(nowUtc, NewYorkZone).ToString("ddd HH:mm");
 
         string status;
         string statusColor;
@@ -94,6 +103,8 @@ internal sealed class PeakHoursWidgetImpl : WidgetImplBase
         AppendField(json, ref first, "window0Time", schedule.Time0);
         AppendField(json, ref first, "window1Days", schedule.Days1);
         AppendField(json, ref first, "window1Time", schedule.Time1);
+        AppendField(json, ref first, "chinaTime", chinaTime);
+        AppendField(json, ref first, "newYorkTime", newYorkTime);
         json.Append('}');
         return json.ToString();
     }
@@ -275,6 +286,25 @@ internal sealed class PeakHoursWidgetImpl : WidgetImplBase
             return $"in {minutes}m";
         }
         return minutes == 0 ? $"in {hours}h" : $"in {hours}h {minutes}m";
+    }
+
+    private static TimeZoneInfo FindZone(string windowsId, string ianaId)
+    {
+        try
+        {
+            return TimeZoneInfo.FindSystemTimeZoneById(windowsId);
+        }
+        catch
+        {
+            try
+            {
+                return TimeZoneInfo.FindSystemTimeZoneById(ianaId);
+            }
+            catch
+            {
+                return TimeZoneInfo.Utc;
+            }
+        }
     }
 
     private static ScheduleSnapshot GetSchedule(TimeZoneInfo zone, DateTime nowLocal)
